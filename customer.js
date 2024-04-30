@@ -7,6 +7,14 @@ const customerObj = [
     gender: "M",
     id: "1",
     photo: "https://randomuser.me/api/portraits/men/92.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Lindsay",
@@ -16,6 +24,14 @@ const customerObj = [
     gender: "F",
     id: "2",
     photo: "https://randomuser.me/api/portraits/men/30.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Gerda",
@@ -25,6 +41,14 @@ const customerObj = [
     gender: "M",
     id: "3",
     photo: "https://randomuser.me/api/portraits/men/85.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Skye",
@@ -34,6 +58,14 @@ const customerObj = [
     gender: "F",
     id: "4",
     photo: "https://randomuser.me/api/portraits/men/75.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Simeon",
@@ -43,6 +75,14 @@ const customerObj = [
     gender: "M",
     id: "5",
     photo: "https://randomuser.me/api/portraits/men/81.jpg",
+    status: "Inactive",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Kenyon",
@@ -52,6 +92,14 @@ const customerObj = [
     gender: "F",
     id: "6",
     photo: "https://randomuser.me/api/portraits/men/31.jpg",
+    status: "Lead",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "Closed Won",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Toni",
@@ -61,6 +109,14 @@ const customerObj = [
     gender: "M",
     id: "7",
     photo: "https://randomuser.me/api/portraits/men/88.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "Closed Lost",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Fredy",
@@ -70,6 +126,14 @@ const customerObj = [
     gender: "M",
     id: "8",
     photo: "https://randomuser.me/api/portraits/men/61.jpg",
+    status: "Inactive",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Elvis",
@@ -79,6 +143,14 @@ const customerObj = [
     gender: "M",
     id: "9",
     photo: "https://randomuser.me/api/portraits/men/66.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Lulu",
@@ -97,6 +169,14 @@ const customerObj = [
     gender: "F",
     id: "11",
     photo: "https://randomuser.me/api/portraits/men/71.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
   {
     first_name: "Adonis",
@@ -106,6 +186,14 @@ const customerObj = [
     gender: "M",
     id: "12",
     photo: "https://randomuser.me/api/portraits/men/36.jpg",
+    status: "Active",
+    salesInfo: [
+      {
+        salesId: "1",
+        status: "New",
+        Name: "Sales_1",
+      },
+    ],
   },
 ];
 
