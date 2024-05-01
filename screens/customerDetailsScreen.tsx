@@ -11,7 +11,11 @@ import {
 import { useDispatch } from "react-redux";
 import AddDetailsModal from "../components/modal";
 import colors from "../constants/colors";
-import { deleteSales, getCustomer } from "../store/action/customerAction";
+import {
+  addSales,
+  deleteSales,
+  getCustomer,
+} from "../store/action/customerAction";
 
 const CustomerDetailsScreen = ({ route }) => {
   const {
@@ -44,6 +48,20 @@ const CustomerDetailsScreen = ({ route }) => {
     };
     dispatch(
       deleteSales(
+        payloadObg
+        // () => dispatch(getCustomer())
+      )
+    );
+  };
+
+  const handleAddSales = () => {
+    const payloadObg = {
+      customerId: id,
+      status: "Lead",
+      name: "QA",
+    };
+    dispatch(
+      addSales(
         payloadObg
         // () => dispatch(getCustomer())
       )
@@ -105,7 +123,10 @@ const CustomerDetailsScreen = ({ route }) => {
         }}
       >
         <TouchableOpacity
-          onPress={() => setModalVisible(true)}
+          onPress={
+            handleAddSales
+            // () => setModalVisible(true)
+          }
           style={styles.button}
         >
           <Text style={styles.text}>Add Sales Information</Text>

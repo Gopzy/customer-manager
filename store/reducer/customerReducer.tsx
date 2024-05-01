@@ -1,5 +1,6 @@
 import customerObj from "../../customer";
 import {
+  ADD_SALES_RECORD,
   DELETE_SALES_RECORD,
   GET_CUSTOMER_FAILED,
   GET_CUSTOMER_REQUEST,
@@ -7,7 +8,7 @@ import {
 } from "../action/actionType";
 
 const initialState = {
-  customerData: [...customerObj],
+  customerData: [],
   customerData_error: null,
 };
 
@@ -48,6 +49,40 @@ const handelDeletSalesRecord = (state, payload) => {
   return state;
 };
 
+const handelAddSalesRecord = (state, payload) => {
+  const { customerId, status, name } = payload;
+
+  const customerIndex = state.customerData.findIndex(
+    ({ id }) => id === customerId
+  );
+
+  if (customerIndex !== -1) {
+    const salesId = (Math.floor(Math.random() * 1000) + 1).toString();
+
+    const newSalesRecord = {
+      salesId,
+      status,
+      name,
+    };
+
+    const updatedCustomerData = [...state.customerData];
+    updatedCustomerData[customerIndex] = {
+      ...updatedCustomerData[customerIndex],
+      salesInfo: [
+        ...updatedCustomerData[customerIndex].salesInfo,
+        newSalesRecord,
+      ],
+    };
+
+    return {
+      ...state,
+      customerData: updatedCustomerData,
+    };
+  }
+
+  return state;
+};
+
 const customerReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CUSTOMER_REQUEST:
@@ -68,6 +103,9 @@ const customerReducer = (state = initialState, action) => {
 
     case DELETE_SALES_RECORD:
       return handelDeletSalesRecord(state, action.payload);
+
+    case ADD_SALES_RECORD:
+      return handelAddSalesRecord(state, action.payload);
 
     default:
       return state;

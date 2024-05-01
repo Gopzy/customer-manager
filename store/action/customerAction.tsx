@@ -1,11 +1,12 @@
 import {
+  ADD_SALES_RECORD,
   DELETE_SALES_RECORD,
   GET_CUSTOMER,
   GET_CUSTOMER_SUCCESS,
 } from "./actionType";
 
 const getCustomer = (success?: Function, failed?: Function) => ({
-  type: GET_CUSTOMER_SUCCESS,
+  type: GET_CUSTOMER,
   success,
   failed,
 });
@@ -17,4 +18,11 @@ const deleteSales = (payload: {}, success?: Function, failed?: Function) => ({
   failed,
 });
 
-export { getCustomer, deleteSales };
+const addSales = (payload: {}, success?: Function, failed?: Function) => ({
+  type: ADD_SALES_RECORD,
+  payload,
+  success,
+  failed,
+});
+
+export { getCustomer, deleteSales, addSales };

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import customersReducer from "./reducer/customerReducer";
 import createSagaMiddleware from "redux-saga";
-// import { watchGetCustomer } from "./saga/getProducts.saga";
+import { watchGetCustomer } from "./sagas/customerSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,4 +12,4 @@ export default configureStore({
   middleware: (gDM) => gDM().concat(sagaMiddleware),
 });
 
-// sagaMiddleware.run(watchGetCustomer);
+sagaMiddleware.run(watchGetCustomer);

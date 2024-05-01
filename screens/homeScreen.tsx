@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CustomerListItem from "../components/customerListItem";
 import colors from "../constants/colors";
 import customerObj from "../customer";
-
-const renderCustomers = ({ item }) => {
-  return <CustomerListItem item={item} />;
-};
+import { getCustomer } from "../store/action/customerAction";
 
 const HomeScreen = () => {
   const customerData = useSelector((state) => state?.customer?.customerData);
+  const dispatch = useDispatch();
   //   console.log("customerData >>>>", customerData);
+
+  useEffect(() => {
+    dispatch(getCustomer());
+  }, []);
+
+  const renderCustomers = ({ item }) => {
+    return <CustomerListItem item={item} />;
+  };
 
   return (
     <ScrollView style={style.scrollContainer}>
