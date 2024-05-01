@@ -1,77 +1,125 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Modal } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { useDispatch } from "react-redux";
+import colors from "../constants/colors";
+import { addSales } from "../store/action/customerAction";
 
-const AddDetailsModal = ({ visible, onClose }) => {
-  const [title, setTitle] = useState("");
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState("");
-  const [country, setCountry] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+const initialFormData = {
+  status: "",
+  name: "",
+};
+const AddDetailsModal = ({ visible, onClose, customerId }) => {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState(initialFormData);
 
-  const handleSubmit = () => {
-    // Handle form submission here
-    // You can send the form data to a backend or handle it locally
-    console.log("Form submitted:", {
-      title,
-      name,
-      status,
-      country,
-      startDate,
-      endDate,
-    });
-    // Clear form fields
-    setTitle("");
-    setName("");
-    setStatus("");
-    setCountry("");
-    setStartDate(new Date());
-    setEndDate(new Date());
-    // Close modal
+  const handleChange = (field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    const { name, status } = formData;
+
+    // Validating input fields before saving
+    if (status.trim() === "" || name.trim() === "") {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    const payload = {
+      customerId: customerId,
+      status: status,
+      name: name,
+    };
+
+    dispatch(addSales(payload));
+
+    // Reset the input fields
+    setFormData(initialFormData);
     onClose();
   };
 
   return (
-    <Modal visible={visible} animationType="slide" transparent>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        <View style={{ backgroundColor: "#fff", width: "80%", padding: 20 }}>
-          <Text>Add Details</Text>
-          {/* <TextInput
-            placeholder="Title"
-            value={title}
-            onChangeText={setTitle}
-            style={{ borderBottomWidth: 1, marginBottom: 10 }}
-          /> */}
-
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visible}
+      onRequestClose={onClose}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <Text style={styles.modalTitle}>Add opportunity</Text>
           <TextInput
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-            style={{ borderBottomWidth: 1, marginBottom: 10 }}
-          />
-          <TextInput
+            style={styles.input}
             placeholder="Status"
-            value={status}
-            onChangeText={setStatus}
-            style={{ borderBottomWidth: 1, marginBottom: 10 }}
+            value={formData.status}
+            onChangeText={(text) => handleChange("status", text)}
           />
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-          >
-            <Button title="Submit" onPress={handleSubmit} />
-            <Button title="Cancel" onPress={onClose} />
-          </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            value={formData.name}
+            onChangeText={(text) => handleChange("name", text)}
+          />
+
+          <TouchableOpacity style={styles.button} onPress={handleSave}>
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={onClose}>
+            <Text style={styles.buttonText}>Cancel</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: colors.primaryBlue,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+});
 
 export default AddDetailsModal;

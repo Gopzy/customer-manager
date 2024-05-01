@@ -42,27 +42,13 @@ const CustomerDetailsScreen = ({ route }) => {
   // });
 
   const handleDeleteSales = (salesId) => {
-    const payloadObg = {
+    const payload = {
       customerId: id,
       sId: salesId,
     };
     dispatch(
       deleteSales(
-        payloadObg
-        // () => dispatch(getCustomer())
-      )
-    );
-  };
-
-  const handleAddSales = () => {
-    const payloadObg = {
-      customerId: id,
-      status: "Lead",
-      name: "QA",
-    };
-    dispatch(
-      addSales(
-        payloadObg
+        payload
         // () => dispatch(getCustomer())
       )
     );
@@ -123,15 +109,13 @@ const CustomerDetailsScreen = ({ route }) => {
         }}
       >
         <TouchableOpacity
-          onPress={
-            handleAddSales
-            // () => setModalVisible(true)
-          }
+          onPress={() => setModalVisible(true)}
           style={styles.button}
         >
           <Text style={styles.text}>Add Sales Information</Text>
         </TouchableOpacity>
         <AddDetailsModal
+          customerId={id}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
         />

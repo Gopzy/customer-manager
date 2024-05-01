@@ -12,7 +12,7 @@ const initialState = {
   customerData_error: null,
 };
 
-const handelDeletSalesRecord = (state, payload) => {
+const deletSalesRecord = (state, payload) => {
   const { customerId, sId } = payload;
 
   const customerIndex = state.customerData.findIndex(
@@ -49,7 +49,7 @@ const handelDeletSalesRecord = (state, payload) => {
   return state;
 };
 
-const handelAddSalesRecord = (state, payload) => {
+const addSalesRecord = (state, payload) => {
   const { customerId, status, name } = payload;
 
   const customerIndex = state.customerData.findIndex(
@@ -102,10 +102,10 @@ const customerReducer = (state = initialState, action) => {
       };
 
     case DELETE_SALES_RECORD:
-      return handelDeletSalesRecord(state, action.payload);
+      return deletSalesRecord(state, action.payload);
 
     case ADD_SALES_RECORD:
-      return handelAddSalesRecord(state, action.payload);
+      return addSalesRecord(state, action.payload);
 
     default:
       return state;
