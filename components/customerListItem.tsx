@@ -1,22 +1,18 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  View,
-  Text,
-  Pressable,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-import { useDispatch } from "react-redux";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+
 import colors from "../constants/colors";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { CUSTOMER_DETAILS_SCREEN, STATUS } from "../constants";
 
 const CustomerListItem = ({ item }) => {
-  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { first_name, number, photo, status } = item;
+  const { first_name, number, photo, status, id } = item;
+
+  const onCustomerPress = () => {
+    navigation.navigate(CUSTOMER_DETAILS_SCREEN, { customerId: id });
+  };
 
   return (
     <TouchableOpacity
@@ -26,9 +22,7 @@ const CustomerListItem = ({ item }) => {
           ? [style.container, { backgroundColor: colors.borderGrey }]
           : style.container
       }
-      onPress={() =>
-        navigation.navigate(CUSTOMER_DETAILS_SCREEN, { customer: item })
-      }
+      onPress={onCustomerPress}
     >
       <View style={style.content}>
         <Image source={{ uri: photo }} style={style.imgStyle} />

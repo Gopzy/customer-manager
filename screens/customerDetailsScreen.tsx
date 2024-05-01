@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -8,50 +7,32 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddDetailsModal from "../components/modal";
 import colors from "../constants/colors";
-import {
-  addSales,
-  deleteSales,
-  getCustomer,
-} from "../store/action/customerAction";
+import { deleteSales } from "../store/action/customerAction";
 
 const CustomerDetailsScreen = ({ route }) => {
-  const {
-    customer: {
-      first_name,
-      last_name,
-      email,
-      number,
-      gender,
-      photo,
-      salesInfo,
-      id,
-    },
-  } = route.params;
+  const { customerId } = route.params;
 
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [customerDetails, setCustomerDetails] = useState();
+  const [customerDetails, setCustomerDetails] = useState<any>();
   const [modalVisible, setModalVisible] = useState(false);
 
-  // useEffect(() => {
-  //   setCustomerDetails(route?.params?.customer);
-  // });
+  const customerData = useSelector((state) => state?.customer?.customerData);
+
+  useEffect(() => {
+    const selectedcustomer = customerData?.find(({ id }) => id === customerId);
+    selectedcustomer && setCustomerDetails(selectedcustomer);
+  }, [customerData]);
 
   const handleDeleteSales = (salesId) => {
     const payload = {
-      customerId: id,
+      customerId: customerDetails?.id,
       sId: salesId,
     };
-    dispatch(
-      deleteSales(
-        payload
-        // () => dispatch(getCustomer())
-      )
-    );
+    dispatch(deleteSales(payload));
   };
 
   const renderSalesInfo = ({ name, salesId, status }) => {
@@ -85,21 +66,24 @@ const CustomerDetailsScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
-        <Image source={{ uri: photo }} style={styles.profileImage} />
+        <Image
+          source={{ uri: customerDetails?.photo }}
+          style={styles.profileImage}
+        />
         <View style={styles.profileInfo}>
           <Text style={styles.name}>
-            {first_name} {last_name}
+            {customerDetails?.first_name} {customerDetails?.last_name}
           </Text>
-          <Text style={styles.email}>{email}</Text>
-          <Text style={styles.number}>{number}</Text>
+          <Text style={styles.email}>{customerDetails?.email}</Text>
+          <Text style={styles.number}>{customerDetails?.number}</Text>
           <Text style={styles.gender}>
-            {gender === "M" ? "Male" : "Female"}
+            {customerDetails?.gender === "M" ? "Male" : "Female"}
           </Text>
         </View>
       </View>
       <View style={styles.salesInfoContainer}>
         <Text style={styles.salesInfoTitle}>Sales Information</Text>
-        {salesInfo.map(renderSalesInfo)}
+        {customerDetails?.salesInfo.map(renderSalesInfo)}
       </View>
       <View
         style={{
@@ -115,7 +99,7 @@ const CustomerDetailsScreen = ({ route }) => {
           <Text style={styles.text}>Add Sales Information</Text>
         </TouchableOpacity>
         <AddDetailsModal
-          customerId={id}
+          customerId={customerDetails?.id}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
         />

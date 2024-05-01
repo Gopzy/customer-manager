@@ -9,7 +9,6 @@ import { getCustomer } from "../store/action/customerAction";
 const HomeScreen = () => {
   const customerData = useSelector((state) => state?.customer?.customerData);
   const dispatch = useDispatch();
-  //   console.log("customerData >>>>", customerData);
 
   useEffect(() => {
     dispatch(getCustomer());

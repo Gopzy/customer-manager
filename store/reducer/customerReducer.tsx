@@ -1,4 +1,3 @@
-import customerObj from "../../customer";
 import {
   ADD_SALES_RECORD,
   DELETE_SALES_RECORD,

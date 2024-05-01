@@ -50,7 +50,7 @@ const AddDetailsModal = ({ visible, onClose, customerId }) => {
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}

@@ -7,16 +7,13 @@ import {
   GET_CUSTOMER_SUCCESS,
 } from "../action/actionType";
 
-// const CUSTOMER_API =
-//   "https://s3-eu-west-1.amazonaws.com/api.themeshplatform.com/products.json";
+const CUSTOMER_API = "http://10.0.2.2:3000/customer";
 
 export function* getCustomersSaga({ success, failed }) {
   try {
-    // const {
-    //   data: { data },
-    // } = yield call(axios.get, CUSTOMER_API);
+    const { data } = yield call(axios.get, CUSTOMER_API);
     success?.();
-    yield put({ type: GET_CUSTOMER_SUCCESS, payload: customerObj });
+    yield put({ type: GET_CUSTOMER_SUCCESS, payload: data });
   } catch (error) {
     failed?.();
     yield put({ type: GET_CUSTOMER_FAILED, payload: error });
