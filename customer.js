@@ -12,7 +12,27 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Scrum Master",
+      },
+      {
+        salesId: "2",
+        status: "Closed Lost",
+        name: "Team Lead",
+      },
+      {
+        salesId: "3",
+        status: "Closed Won",
+        name: "Software Engineer",
+      },
+      {
+        salesId: "4",
+        status: "New",
+        name: "Project Manager",
+      },
+      {
+        salesId: "5",
+        status: "New",
+        name: "UX/UI Designer",
       },
     ],
   },
@@ -29,7 +49,27 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Scrum Master",
+      },
+      {
+        salesId: "2",
+        status: "Closed Lost",
+        name: "Team Lead",
+      },
+      {
+        salesId: "3",
+        status: "Closed Won",
+        name: "Software Engineer",
+      },
+      {
+        salesId: "4",
+        status: "New",
+        name: "Project Manager",
+      },
+      {
+        salesId: "5",
+        status: "New",
+        name: "UX/UI Designer",
       },
     ],
   },
@@ -46,7 +86,27 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Scrum Master",
+      },
+      {
+        salesId: "2",
+        status: "Closed Lost",
+        name: "Team Lead",
+      },
+      {
+        salesId: "3",
+        status: "Closed Won",
+        name: "Software Engineer",
+      },
+      {
+        salesId: "4",
+        status: "New",
+        name: "Project Manager",
+      },
+      {
+        salesId: "5",
+        status: "New",
+        name: "UX/UI Designer",
       },
     ],
   },
@@ -63,7 +123,27 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Scrum Master",
+      },
+      {
+        salesId: "2",
+        status: "Closed Lost",
+        name: "Team Lead",
+      },
+      {
+        salesId: "3",
+        status: "Closed Won",
+        name: "Software Engineer",
+      },
+      {
+        salesId: "4",
+        status: "New",
+        name: "Project Manager",
+      },
+      {
+        salesId: "5",
+        status: "New",
+        name: "UX/UI Designer",
       },
     ],
   },
@@ -80,7 +160,7 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Sales_1",
       },
     ],
   },
@@ -97,7 +177,7 @@ const customerObj = [
       {
         salesId: "1",
         status: "Closed Won",
-        Name: "Sales_1",
+        name: "Sales_1",
       },
     ],
   },
@@ -114,7 +194,7 @@ const customerObj = [
       {
         salesId: "1",
         status: "Closed Lost",
-        Name: "Sales_1",
+        name: "Sales_1",
       },
     ],
   },
@@ -131,7 +211,7 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Sales_1",
       },
     ],
   },
@@ -148,7 +228,7 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Sales_1",
       },
     ],
   },
@@ -174,7 +254,7 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Sales_1",
       },
     ],
   },
@@ -191,7 +271,7 @@ const customerObj = [
       {
         salesId: "1",
         status: "New",
-        Name: "Sales_1",
+        name: "Sales_1",
       },
     ],
   },

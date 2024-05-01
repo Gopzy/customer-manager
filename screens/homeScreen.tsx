@@ -1,21 +1,27 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import CustomerListItem from "../components/customerListItem";
 import colors from "../constants/colors";
 import customerObj from "../customer";
 
-const renderCustomers = (customer) => {
-  return <CustomerListItem item={customer} />;
+const renderCustomers = ({ item }) => {
+  return <CustomerListItem item={item} />;
 };
 
 const HomeScreen = () => {
   const customerData = useSelector((state) => state?.customer?.customerData);
-  console.log("customerData >>>>", customerData);
+  //   console.log("customerData >>>>", customerData);
 
   return (
     <ScrollView style={style.scrollContainer}>
-      {customerData.map((customer) => renderCustomers(customer))}
+      <FlatList
+        data={customerData}
+        renderItem={renderCustomers}
+        keyExtractor={(item) => item.id}
+        numColumns={1}
+        horizontal={false}
+      />
     </ScrollView>
   );
 };

@@ -11,67 +11,65 @@ import {
 import { useDispatch } from "react-redux";
 import colors from "../constants/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { CUSTOMER_DETAILS_SCREEN, STATUS } from "../constants";
 
 const CustomerListItem = ({ item }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { first_name, email, number, gender, photo } = item;
+  const { first_name, number, photo, status } = item;
 
   return (
     <TouchableOpacity
       key={item.id}
-      style={style.container}
+      style={
+        status === STATUS.Inactive
+          ? [style.container, { backgroundColor: colors.borderGrey }]
+          : style.container
+      }
       onPress={() =>
-        navigation.navigate("customerDetailsScreen", { customer: item })
+        navigation.navigate(CUSTOMER_DETAILS_SCREEN, { customer: item })
       }
     >
-      <View>
-        <View style={style.quantity}>
-          <Image source={{ uri: photo }} style={style.imgStyle} />
-          <View>
-            <Text style={style.quantityTxt}>{`name: ${first_name}`}</Text>
-            <Text style={style.size}>{`number: ${number}`}</Text>
-            <Text style={[style.size, style.font_15]}>{`gender: ${
-              gender === "M" ? "Male" : "Female"
-            }`}</Text>
-          </View>
-        </View>
+      <View style={style.content}>
+        <Image source={{ uri: photo }} style={style.imgStyle} />
+        <Text style={style.contentTxt}>{first_name}</Text>
+        <Text style={style.size}>{number}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 const style = StyleSheet.create({
   container: {
-    padding: 8,
-    paddingVertical: 25,
+    // flex: 1,
+    padding: 5,
     marginHorizontal: 10,
     marginVertical: 5,
-    borderRadius: 10,
+    borderRadius: 25,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.cartgreen,
   },
-  quantity: {
+  content: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingRight: 15,
   },
-  quantityTxt: {
+  contentTxt: {
     paddingLeft: 10,
     fontSize: 18,
   },
   imgStyle: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
+    width: 60,
+    height: 60,
+    borderRadius: 60,
   },
   size: {
     paddingLeft: 10,
     fontSize: 18,
     marginTop: 5,
-  },
-  font_15: {
-    fontSize: 15,
   },
 });
 
