@@ -1,12 +1,10 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-
-import colors from "../constants/colors";
-
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { CUSTOMER_DETAILS_SCREEN } from "../constants";
 import { customerDataType } from "../types/types";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import colors from "../constants/colors";
 import { rootStactParams } from "../App";
 
 type ScreenNavigationProp = NativeStackNavigationProp<rootStactParams>;

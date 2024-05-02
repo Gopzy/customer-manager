@@ -1,4 +1,5 @@
 import { FILTER_ALL } from "../../constants";
+import { initialReducerType, reducerPayloadType } from "../../types/types";
 import {
   ADD_SALES_RECORD,
   DELETE_SALES_RECORD,
@@ -9,7 +10,7 @@ import {
   SET_FILTER,
 } from "../action/actionType";
 
-const initialState = {
+const initialState: initialReducerType = {
   customerData: [],
   filteredData: [],
   customerData_error: null,
@@ -134,8 +135,11 @@ const setFilter = (state, payload) => {
   };
 };
 
-const customerReducer = (state = initialState, action) => {
-  switch (action.type) {
+const customerReducer = (
+  state = initialState,
+  { type, payload }: reducerPayloadType
+) => {
+  switch (type) {
     case GET_CUSTOMER_REQUEST:
       return {
         ...state,
@@ -144,25 +148,25 @@ const customerReducer = (state = initialState, action) => {
     case GET_CUSTOMER_SUCCESS:
       return {
         ...state,
-        customerData: action.payload,
+        customerData: payload,
       };
     case GET_CUSTOMER_FAILED:
       return {
         ...state,
-        customerData_error: action.payload,
+        customerData_error: payload,
       };
 
     case DELETE_SALES_RECORD:
-      return deletSalesRecord(state, action.payload);
+      return deletSalesRecord(state, payload);
 
     case ADD_SALES_RECORD:
-      return addSalesRecord(state, action.payload);
+      return addSalesRecord(state, payload);
 
     case EDIT_SALES_RECORD:
-      return editSalesRecord(state, action.payload);
+      return editSalesRecord(state, payload);
 
     case SET_FILTER:
-      return setFilter(state, action.payload);
+      return setFilter(state, payload);
 
     default:
       return state;

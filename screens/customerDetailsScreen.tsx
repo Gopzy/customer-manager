@@ -45,10 +45,10 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
           <Text style={styles.saleStatus}>{status}</Text>
         </View>
         <View style={styles.flexEnd}>
-          <View style={{ flexDirection: "row" }}>
+          <View style={styles.rowContainer}>
             <TouchableOpacity
               onPress={() => handleDeleteSales(salesId)}
-              style={{ paddingHorizontal: 15 }}
+              style={styles.actionBtn}
             >
               <Text style={styles.colorRed}>Remove</Text>
             </TouchableOpacity>
@@ -121,6 +121,12 @@ const styles = StyleSheet.create({
   },
   flexEnd: {
     alignItems: "flex-end",
+  },
+  actionBtn: {
+    paddingHorizontal: 15,
+  },
+  rowContainer: {
+    flexDirection: "row",
   },
   colorRed: {
     color: colors.iconRed,
@@ -197,9 +203,6 @@ const styles = StyleSheet.create({
   saleStatus: {
     fontSize: 16,
     color: "#666",
-  },
-  buttonContainer: {
-    marginTop: 20,
   },
 });
 

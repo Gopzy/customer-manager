@@ -1,9 +1,14 @@
 import {
+  addSalesType,
+  deleteSalesType,
+  editSalesType,
+  setFilterType,
+} from "../../types/types";
+import {
   ADD_SALES_RECORD,
   DELETE_SALES_RECORD,
   EDIT_SALES_RECORD,
   GET_CUSTOMER,
-  GET_CUSTOMER_SUCCESS,
   SET_FILTER,
 } from "./actionType";
 
@@ -13,28 +18,44 @@ const getCustomer = (success?: Function, failed?: Function) => ({
   failed,
 });
 
-const deleteSales = (payload: {}, success?: Function, failed?: Function) => ({
+const deleteSales = (
+  payload: deleteSalesType,
+  success?: Function,
+  failed?: Function
+) => ({
   type: DELETE_SALES_RECORD,
   payload,
   success,
   failed,
 });
 
-const addSales = (payload: {}, success?: Function, failed?: Function) => ({
+const addSales = (
+  payload: addSalesType,
+  success?: Function,
+  failed?: Function
+) => ({
   type: ADD_SALES_RECORD,
   payload,
   success,
   failed,
 });
 
-const editSales = (payload: {}, success?: Function, failed?: Function) => ({
+const editSales = (
+  payload: editSalesType,
+  success?: Function,
+  failed?: Function
+) => ({
   type: EDIT_SALES_RECORD,
   payload,
   success,
   failed,
 });
 
-const setFilter = (payload: {}, success?: Function, failed?: Function) => ({
+const setFilter = (
+  payload: setFilterType,
+  success?: Function,
+  failed?: Function
+) => ({
   type: SET_FILTER,
   payload,
   success,

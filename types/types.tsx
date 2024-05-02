@@ -38,3 +38,39 @@ export type initialFormType = {
   status: string;
   name: string;
 };
+
+export type initialReducerType = {
+  customerData: [customerDataType] | [];
+  filteredData: [customerDataType] | [];
+  customerData_error: any;
+};
+
+export type deleteSalesType = {
+  customerId: string;
+  sId: string;
+};
+
+export type addSalesType = {
+  customerId: string;
+  status: string;
+  name: string;
+};
+export type editSalesType = {
+  customerId: string;
+  status: string;
+  name: string;
+  sId: string;
+};
+export type setFilterType = {
+  filterCriteria: string;
+};
+
+export type reducerPayloadType = {
+  type: string;
+  payload:
+    | [customerDataType]
+    | deleteSalesType
+    | addSalesType
+    | editSalesType
+    | setFilterType;
+};
