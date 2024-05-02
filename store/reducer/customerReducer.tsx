@@ -1,6 +1,7 @@
 import {
   ADD_SALES_RECORD,
   DELETE_SALES_RECORD,
+  EDIT_SALES_RECORD,
   GET_CUSTOMER_FAILED,
   GET_CUSTOMER_REQUEST,
   GET_CUSTOMER_SUCCESS,
@@ -45,6 +46,37 @@ const deletSalesRecord = (state, payload) => {
       };
     }
   }
+  return state;
+};
+
+const editSalesRecord = (state, payload) => {
+  const { customerId, sId, status, name } = payload;
+
+  const customerIndex = state.customerData.findIndex(
+    (customer) => customer.id === customerId
+  );
+
+  if (customerIndex !== -1) {
+    const salesInfoIndex = state.customerData[
+      customerIndex
+    ].salesInfo.findIndex((sale) => sale.salesId === sId);
+
+    if (salesInfoIndex !== -1) {
+      const updatedCustomerData = [...state.customerData];
+      updatedCustomerData[customerIndex] = {
+        ...updatedCustomerData[customerIndex],
+        salesInfo: updatedCustomerData[customerIndex].salesInfo.map((sale) =>
+          sale.salesId === sId ? { ...sale, status, name } : sale
+        ),
+      };
+
+      return {
+        ...state,
+        customerData: updatedCustomerData,
+      };
+    }
+  }
+
   return state;
 };
 
@@ -105,6 +137,9 @@ const customerReducer = (state = initialState, action) => {
 
     case ADD_SALES_RECORD:
       return addSalesRecord(state, action.payload);
+
+    case EDIT_SALES_RECORD:
+      return editSalesRecord(state, action.payload);
 
     default:
       return state;

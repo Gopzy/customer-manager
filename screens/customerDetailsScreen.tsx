@@ -18,7 +18,10 @@ const CustomerDetailsScreen = ({ route }) => {
   const dispatch = useDispatch();
 
   const [customerDetails, setCustomerDetails] = useState<any>();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState({
+    status: false,
+    salesId: "",
+  });
 
   const customerData = useSelector((state) => state?.customer?.customerData);
 
@@ -54,7 +57,12 @@ const CustomerDetailsScreen = ({ route }) => {
             >
               <Text style={{ color: colors.iconRed }}>Remove</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}} style={{}}>
+            <TouchableOpacity
+              onPress={() =>
+                setModalVisible({ status: true, salesId: salesId })
+              }
+              style={{}}
+            >
               <Text style={styles.textBlue}>Edit</Text>
             </TouchableOpacity>
           </View>
@@ -93,15 +101,16 @@ const CustomerDetailsScreen = ({ route }) => {
         }}
       >
         <TouchableOpacity
-          onPress={() => setModalVisible(true)}
+          onPress={() => setModalVisible({ status: true, salesId: "" })}
           style={styles.button}
         >
           <Text style={styles.text}>Add Sales Information</Text>
         </TouchableOpacity>
         <AddDetailsModal
-          customerId={customerDetails?.id}
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
+          customerData={customerDetails}
+          salesId={modalVisible?.salesId}
+          visible={modalVisible.status}
+          onClose={() => setModalVisible({ status: false, salesId: "" })}
         />
       </View>
     </View>

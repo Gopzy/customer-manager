@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   View,
@@ -7,17 +7,37 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import colors from "../constants/colors";
-import { addSales } from "../store/action/customerAction";
+import { addSales, editSales } from "../store/action/customerAction";
 
 const initialFormData = {
   status: "",
   name: "",
 };
-const AddDetailsModal = ({ visible, onClose, customerId }) => {
+
+const AddDetailsModal = ({
+  visible,
+  onClose,
+  salesId,
+  customerData,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  salesId?: string;
+  customerData: any;
+}) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initialFormData);
+
+  useEffect(() => {
+    const initialFormValue = customerData?.salesInfo?.find(
+      (element) => element.salesId === salesId
+    );
+
+    // setting the initial form state value upon editing
+    initialFormValue && setFormData(initialFormValue);
+  }, [visible]);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({
@@ -35,17 +55,32 @@ const AddDetailsModal = ({ visible, onClose, customerId }) => {
       return;
     }
 
-    const payload = {
-      customerId: customerId,
-      status: status,
-      name: name,
+    const addPayload = {
+      customerId: customerData?.id,
+      status,
+      name,
     };
 
-    dispatch(addSales(payload));
+    const editPayload = {
+      customerId: customerData?.id,
+      status,
+      name,
+      sId: salesId,
+    };
 
-    // Reset the input fields
-    setFormData(initialFormData);
+    if (salesId.length) {
+      dispatch(editSales(editPayload));
+    } else {
+      dispatch(addSales(addPayload));
+    }
+
+    // Reset the input fields and cloe the modal
+    handleClose();
+  };
+
+  const handleClose = () => {
     onClose();
+    setFormData(initialFormData);
   };
 
   return (
@@ -60,21 +95,20 @@ const AddDetailsModal = ({ visible, onClose, customerId }) => {
           <Text style={styles.modalTitle}>Add opportunity</Text>
           <TextInput
             style={styles.input}
-            placeholder="Status"
-            value={formData.status}
-            onChangeText={(text) => handleChange("status", text)}
-          />
-          <TextInput
-            style={styles.input}
             placeholder="Name"
             value={formData.name}
             onChangeText={(text) => handleChange("name", text)}
           />
-
+          <TextInput
+            style={styles.input}
+            placeholder="Status"
+            value={formData.status}
+            onChangeText={(text) => handleChange("status", text)}
+          />
           <TouchableOpacity style={styles.button} onPress={handleSave}>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={onClose}>
+          <TouchableOpacity style={styles.button} onPress={handleClose}>
             <Text style={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
