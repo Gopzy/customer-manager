@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import CustomerListItem from "../components/customerListItem";
 import Filter from "../components/filter";
@@ -42,7 +48,7 @@ const HomeScreen = () => {
         selectedFilter={selectedFilter}
       />
 
-      <ScrollView style={style.scrollContainer}>
+      <SafeAreaView style={style.scrollContainer}>
         <FlatList
           data={filteredData.length ? filteredData : customerData}
           renderItem={renderCustomers}
@@ -50,7 +56,7 @@ const HomeScreen = () => {
           numColumns={1}
           horizontal={false}
         />
-      </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };

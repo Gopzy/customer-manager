@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import AddDetailsModal from "../components/modal";
+import SalesInfo from "../components/salesInfo";
 import colors from "../constants/colors";
 import { deleteSales } from "../store/action/customerAction";
 import {
@@ -37,31 +38,13 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
     dispatch(deleteSales(payload));
   };
 
-  const renderSalesInfo = ({ salesId, name, status }: salesInfoType) => {
+  const renderSalesInfo = (salesInfo: salesInfoType) => {
     return (
-      <View key={salesId} style={styles.salesContainer}>
-        <View style={styles.saleItem}>
-          <Text style={styles.saleName}>{name}</Text>
-          <Text style={styles.saleStatus}>{status}</Text>
-        </View>
-        <View style={styles.flexEnd}>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity
-              onPress={() => handleDeleteSales(salesId)}
-              style={styles.actionBtn}
-            >
-              <Text style={styles.colorRed}>Remove</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                setModalVisible({ status: true, salesId: salesId })
-              }
-            >
-              <Text style={styles.textBlue}>Edit</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <SalesInfo
+        salesInfo={salesInfo}
+        onDelete={handleDeleteSales}
+        onEdit={setModalVisible}
+      />
     );
   };
 

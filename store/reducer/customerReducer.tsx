@@ -15,7 +15,7 @@ const initialState: initialReducerType = {
   filteredData: [],
   customerData_error: null,
 };
-
+// Function for delete a specific sales record based on customerId and salesId
 const deletSalesRecord = (state, payload) => {
   const { customerId, sId } = payload;
 
@@ -53,6 +53,7 @@ const deletSalesRecord = (state, payload) => {
   return state;
 };
 
+// Function for edit an existing sales record  using customerId and salesId
 const editSalesRecord = (state, payload) => {
   const { customerId, sId, status, name } = payload;
 
@@ -84,6 +85,7 @@ const editSalesRecord = (state, payload) => {
   return state;
 };
 
+// Function for add a sales record  using customerId and salesId
 const addSalesRecord = (state, payload) => {
   const { customerId, status, name } = payload;
 
@@ -91,6 +93,7 @@ const addSalesRecord = (state, payload) => {
     ({ id }) => id === customerId
   );
 
+  // generating a random salesId and attaching with the new record
   if (customerIndex !== -1) {
     const salesId = (Math.floor(Math.random() * 1000) + 1).toString();
 
@@ -117,18 +120,16 @@ const addSalesRecord = (state, payload) => {
 
   return state;
 };
-
+// Function for filter the customer data based on the filter criteria (status)
 const setFilter = (state, payload) => {
   const { customerData } = state;
   const { filterCriteria } = payload;
 
-  // Filter the customer data based on the filter criteria (status)
   const filteredData =
     filterCriteria !== FILTER_ALL
       ? customerData.filter(({ status }) => status === filterCriteria)
       : customerData;
 
-  console.log("set filter ::::", filterCriteria, filteredData);
   return {
     ...state,
     filteredData: filteredData,
