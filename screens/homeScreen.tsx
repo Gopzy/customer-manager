@@ -1,14 +1,37 @@
-import React, { useEffect } from "react";
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import CustomerListItem from "../components/customerListItem";
+import Filter from "../components/filter";
+import { FILTER_OPTIONS } from "../constants";
 import colors from "../constants/colors";
-import customerObj from "../customer";
-import { getCustomer } from "../store/action/customerAction";
+import { getCustomer, setFilter } from "../store/action/customerAction";
 
 const HomeScreen = () => {
-  const customerData = useSelector((state) => state?.customer?.customerData);
+  const { customerData, filteredData } = useSelector(
+    (state) => state?.customer
+  );
   const dispatch = useDispatch();
+
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  // const [filterOptions, setFilterOptions] = useState(FILTER_OPTIONS);
+
+  const toggleFilter = () => {
+    setIsFilterVisible(!isFilterVisible);
+  };
+
+  const handleFilterSelect = (option) => {
+    dispatch(setFilter({ filterCriteria: option }));
+
+    toggleFilter();
+  };
 
   useEffect(() => {
     dispatch(getCustomer());
@@ -19,21 +42,30 @@ const HomeScreen = () => {
   };
 
   return (
-    <ScrollView style={style.scrollContainer}>
-      <FlatList
-        data={customerData}
-        renderItem={renderCustomers}
-        keyExtractor={(item) => item.id}
-        numColumns={1}
-        horizontal={false}
+    <View style={style.container}>
+      <Filter
+        onSelect={handleFilterSelect}
+        visible={isFilterVisible}
+        onToggle={toggleFilter}
       />
-    </ScrollView>
+
+      <ScrollView style={style.scrollContainer}>
+        <FlatList
+          data={filteredData.length ? filteredData : customerData}
+          renderItem={renderCustomers}
+          keyExtractor={(item) => item.id}
+          numColumns={1}
+          horizontal={false}
+        />
+      </ScrollView>
+    </View>
   );
 };
 
 const style = StyleSheet.create({
   scrollContainer: {
     paddingHorizontal: 5,
+    marginTop: 50,
   },
   quantity: {
     flexDirection: "row",
@@ -57,6 +89,12 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     color: "green",
     paddingRight: 5,
+  },
+
+  container: {
+    flex: 1,
+    // paddingHorizontal: 10,
+    paddingTop: 10,
   },
 });
 

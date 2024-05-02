@@ -1,3 +1,4 @@
+import { FILTER_ALL } from "../../constants";
 import {
   ADD_SALES_RECORD,
   DELETE_SALES_RECORD,
@@ -5,10 +6,12 @@ import {
   GET_CUSTOMER_FAILED,
   GET_CUSTOMER_REQUEST,
   GET_CUSTOMER_SUCCESS,
+  SET_FILTER,
 } from "../action/actionType";
 
 const initialState = {
   customerData: [],
+  filteredData: [],
   customerData_error: null,
 };
 
@@ -114,6 +117,23 @@ const addSalesRecord = (state, payload) => {
   return state;
 };
 
+const setFilter = (state, payload) => {
+  const { customerData } = state;
+  const { filterCriteria } = payload;
+
+  // Filter the customer data based on the filter criteria (status)
+  const filteredData =
+    filterCriteria !== FILTER_ALL
+      ? customerData.filter(({ status }) => status === filterCriteria)
+      : customerData;
+
+  console.log("set filter ::::", filterCriteria, filteredData);
+  return {
+    ...state,
+    filteredData: filteredData,
+  };
+};
+
 const customerReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CUSTOMER_REQUEST:
@@ -140,6 +160,9 @@ const customerReducer = (state = initialState, action) => {
 
     case EDIT_SALES_RECORD:
       return editSalesRecord(state, action.payload);
+
+    case SET_FILTER:
+      return setFilter(state, action.payload);
 
     default:
       return state;

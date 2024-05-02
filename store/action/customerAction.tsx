@@ -4,6 +4,7 @@ import {
   EDIT_SALES_RECORD,
   GET_CUSTOMER,
   GET_CUSTOMER_SUCCESS,
+  SET_FILTER,
 } from "./actionType";
 
 const getCustomer = (success?: Function, failed?: Function) => ({
@@ -33,4 +34,11 @@ const editSales = (payload: {}, success?: Function, failed?: Function) => ({
   failed,
 });
 
-export { getCustomer, deleteSales, addSales, editSales };
+const setFilter = (payload: {}, success?: Function, failed?: Function) => ({
+  type: SET_FILTER,
+  payload,
+  success,
+  failed,
+});
+
+export { getCustomer, deleteSales, addSales, editSales, setFilter };
