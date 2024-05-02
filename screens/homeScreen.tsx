@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import CustomerListItem from "../components/customerListItem";
 import Filter from "../components/filter";
-import { FILTER_OPTIONS } from "../constants";
-import colors from "../constants/colors";
 import { getCustomer, setFilter } from "../store/action/customerAction";
 
 const HomeScreen = () => {
@@ -21,7 +12,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  // const [filterOptions, setFilterOptions] = useState(FILTER_OPTIONS);
+  const [selectedFilter, setSelectedFilter] = useState();
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
@@ -29,7 +20,7 @@ const HomeScreen = () => {
 
   const handleFilterSelect = (option) => {
     dispatch(setFilter({ filterCriteria: option }));
-
+    setSelectedFilter(option);
     toggleFilter();
   };
 
@@ -47,6 +38,7 @@ const HomeScreen = () => {
         onSelect={handleFilterSelect}
         visible={isFilterVisible}
         onToggle={toggleFilter}
+        selectedFilter={selectedFilter}
       />
 
       <ScrollView style={style.scrollContainer}>
@@ -63,38 +55,14 @@ const HomeScreen = () => {
 };
 
 const style = StyleSheet.create({
-  scrollContainer: {
-    paddingHorizontal: 5,
-    marginTop: 50,
-  },
-  quantity: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  totalContainer: {
-    backgroundColor: colors.bgWhite,
-    borderTopWidth: 2,
-    borderTopColor: colors.borderGrey,
-    padding: 8,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 10,
-  },
-  totalText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  amountText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "green",
-    paddingRight: 5,
-  },
-
   container: {
     flex: 1,
-    // paddingHorizontal: 10,
+    paddingHorizontal: 5,
     paddingTop: 10,
+  },
+  scrollContainer: {
+    // paddingHorizontal: 5,
+    marginTop: 50,
   },
 });
 

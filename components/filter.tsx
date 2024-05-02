@@ -7,14 +7,21 @@ import {
   View,
 } from "react-native";
 import { FILTER_OPTIONS } from "../constants";
+import Icon from "react-native-vector-icons/Ionicons";
+import colors from "../constants/colors";
 
-const Filter = ({ onSelect, visible, onToggle }) => {
+const Filter = ({ onSelect, visible, onToggle, selectedFilter }) => {
   return (
     <View>
-      <TouchableOpacity style={style.filterButton} onPress={onToggle}>
-        <Text>Filter</Text>
-      </TouchableOpacity>
+      <View style={style.container}>
+        <Text style={style.text}>
+          {selectedFilter ? `${selectedFilter} Customers` : "All Customers"}
+        </Text>
 
+        <TouchableOpacity style={style.filterButton} onPress={onToggle}>
+          <Icon name="filter" size={25} />
+        </TouchableOpacity>
+      </View>
       {visible && (
         <View style={style.dropdown}>
           <FlatList
@@ -38,9 +45,10 @@ const Filter = ({ onSelect, visible, onToggle }) => {
 const style = StyleSheet.create({
   filterButton: {
     position: "absolute",
-    top: 10,
+    // top: 10,
     right: 10,
-    backgroundColor: "lightgray",
+    backgroundColor: colors.bgWhite,
+    elevation: 5,
     padding: 10,
     borderRadius: 5,
   },
@@ -58,6 +66,18 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: "lightgray",
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "500",
+    color: colors.shadowGray,
+  },
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 20,
+    paddingHorizontal: 20,
   },
 });
 

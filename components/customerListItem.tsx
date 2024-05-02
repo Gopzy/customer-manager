@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 import colors from "../constants/colors";
 
-import { CUSTOMER_DETAILS_SCREEN, STATUS } from "../constants";
+import { CUSTOMER_DETAILS_SCREEN } from "../constants";
 
 const CustomerListItem = ({ item }) => {
   const navigation = useNavigation();
@@ -17,11 +17,7 @@ const CustomerListItem = ({ item }) => {
   return (
     <TouchableOpacity
       key={item.id}
-      style={
-        status === STATUS.Inactive
-          ? [style.container, { backgroundColor: colors.borderGrey }]
-          : style.container
-      }
+      style={style.container}
       onPress={onCustomerPress}
     >
       <View style={style.content}>
@@ -34,7 +30,6 @@ const CustomerListItem = ({ item }) => {
 };
 const style = StyleSheet.create({
   container: {
-    // flex: 1,
     padding: 5,
     marginHorizontal: 10,
     marginVertical: 5,
@@ -42,7 +37,11 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.cartgreen,
+    backgroundColor: colors.bgWhite,
+    elevation: 5,
+    shadowColor: "blue",
+    // shadowOffset: { width: 5, height: 5 },
+    // opacity: 10,
   },
   content: {
     flex: 1,

@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 20,
+    backgroundColor: colors.bgWhite,
   },
   profileContainer: {
     flexDirection: "row",
@@ -149,18 +150,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    // fontWeight: "bold",
     color: colors.bgWhite,
   },
   textBlue: {
     color: colors.primaryBlue,
   },
-  // name: {
-  //   fontSize: 22,
-  //   fontWeight: "500",
-  //   marginBottom: 10,
-  //   color: colors.shadowGray,
-  // },
+
   color: {
     fontSize: 16,
     fontWeight: "500",
