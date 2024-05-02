@@ -4,21 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomerListItem from "../components/customerListItem";
 import Filter from "../components/filter";
 import { getCustomer, setFilter } from "../store/action/customerAction";
+import { customerDataType, Reducers } from "../types/types";
 
 const HomeScreen = () => {
   const { customerData, filteredData } = useSelector(
-    (state) => state?.customer
+    (state: Reducers) => state?.customer
   );
   const dispatch = useDispatch();
 
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState();
+  const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>();
 
   const toggleFilter = () => {
     setIsFilterVisible(!isFilterVisible);
   };
 
-  const handleFilterSelect = (option) => {
+  const handleFilterSelect = (option: string) => {
     dispatch(setFilter({ filterCriteria: option }));
     setSelectedFilter(option);
     toggleFilter();
@@ -28,7 +29,7 @@ const HomeScreen = () => {
     dispatch(getCustomer());
   }, []);
 
-  const renderCustomers = ({ item }) => {
+  const renderCustomers = ({ item }: { item: customerDataType }) => {
     return <CustomerListItem item={item} />;
   };
 
@@ -61,7 +62,6 @@ const style = StyleSheet.create({
     paddingTop: 10,
   },
   scrollContainer: {
-    // paddingHorizontal: 5,
     marginTop: 50,
   },
 });

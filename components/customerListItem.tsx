@@ -5,10 +5,18 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../constants/colors";
 
 import { CUSTOMER_DETAILS_SCREEN } from "../constants";
+import { customerDataType } from "../types/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { rootStactParams } from "../App";
 
-const CustomerListItem = ({ item }) => {
-  const navigation = useNavigation();
-  const { first_name, number, photo, status, id } = item;
+type ScreenNavigationProp = NativeStackNavigationProp<rootStactParams>;
+
+const CustomerListItem = ({
+  item: { first_name, number, photo, id },
+}: {
+  item: customerDataType;
+}) => {
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const onCustomerPress = () => {
     navigation.navigate(CUSTOMER_DETAILS_SCREEN, { customerId: id });
@@ -16,7 +24,7 @@ const CustomerListItem = ({ item }) => {
 
   return (
     <TouchableOpacity
-      key={item.id}
+      key={id}
       style={style.container}
       onPress={onCustomerPress}
     >
@@ -40,8 +48,6 @@ const style = StyleSheet.create({
     backgroundColor: colors.bgWhite,
     elevation: 5,
     shadowColor: "blue",
-    // shadowOffset: { width: 5, height: 5 },
-    // opacity: 10,
   },
   content: {
     flex: 1,

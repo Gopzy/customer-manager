@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import HomeScreen from "./screens/homeScreen";
 import configureStore from "./store/configureStore";
@@ -7,8 +6,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CustomerDetailsScreen from "./screens/customerDetailsScreen";
 
+export type rootStactParams = {
+  HomeScreen: undefined;
+  CustomerDetailsScreen: { customerId: string } | undefined;
+};
+
 export default function App() {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<rootStactParams>();
 
   return (
     <Provider store={configureStore}>
@@ -24,12 +28,3 @@ export default function App() {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
-  },
-});

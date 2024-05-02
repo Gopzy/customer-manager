@@ -24,5 +24,3 @@ export const FILTER_OPTIONS = [
 ];
 
 export const CUSTOMER_DETAILS_SCREEN = "CustomerDetailsScreen";
-
-export const SALES_NAME = {};

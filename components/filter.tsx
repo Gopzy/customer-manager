@@ -45,7 +45,6 @@ const Filter = ({ onSelect, visible, onToggle, selectedFilter }) => {
 const style = StyleSheet.create({
   filterButton: {
     position: "absolute",
-    // top: 10,
     right: 10,
     backgroundColor: colors.bgWhite,
     elevation: 5,

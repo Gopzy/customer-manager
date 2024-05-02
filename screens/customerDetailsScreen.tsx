@@ -1,36 +1,35 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import AddDetailsModal from "../components/modal";
 import colors from "../constants/colors";
 import { deleteSales } from "../store/action/customerAction";
+import {
+  addModalType,
+  customerDataType,
+  Reducers,
+  salesInfoType,
+} from "../types/types";
 
-const CustomerDetailsScreen = ({ route }) => {
+const CustomerDetailsScreen = ({ route }: { route: any }) => {
   const { customerId } = route.params;
 
   const dispatch = useDispatch();
 
-  const [customerDetails, setCustomerDetails] = useState<any>();
-  const [modalVisible, setModalVisible] = useState({
+  const [customerDetails, setCustomerDetails] = useState<customerDataType>();
+  const [modalVisible, setModalVisible] = useState<addModalType>({
     status: false,
     salesId: "",
   });
 
-  const customerData = useSelector((state) => state?.customer?.customerData);
+  const { customerData } = useSelector((state: Reducers) => state?.customer);
 
   useEffect(() => {
     const selectedcustomer = customerData?.find(({ id }) => id === customerId);
     selectedcustomer && setCustomerDetails(selectedcustomer);
   }, [customerData]);
 
-  const handleDeleteSales = (salesId) => {
+  const handleDeleteSales = (salesId: string) => {
     const payload = {
       customerId: customerDetails?.id,
       sId: salesId,
@@ -38,30 +37,25 @@ const CustomerDetailsScreen = ({ route }) => {
     dispatch(deleteSales(payload));
   };
 
-  const renderSalesInfo = ({ name, salesId, status }) => {
+  const renderSalesInfo = ({ salesId, name, status }: salesInfoType) => {
     return (
-      <View key={salesId} style={{ paddingVertical: 10 }}>
+      <View key={salesId} style={styles.salesContainer}>
         <View style={styles.saleItem}>
           <Text style={styles.saleName}>{name}</Text>
           <Text style={styles.saleStatus}>{status}</Text>
         </View>
-        <View
-          style={{
-            alignItems: "flex-end",
-          }}
-        >
+        <View style={styles.flexEnd}>
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               onPress={() => handleDeleteSales(salesId)}
               style={{ paddingHorizontal: 15 }}
             >
-              <Text style={{ color: colors.iconRed }}>Remove</Text>
+              <Text style={styles.colorRed}>Remove</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
                 setModalVisible({ status: true, salesId: salesId })
               }
-              style={{}}
             >
               <Text style={styles.textBlue}>Edit</Text>
             </TouchableOpacity>
@@ -93,13 +87,7 @@ const CustomerDetailsScreen = ({ route }) => {
         <Text style={styles.salesInfoTitle}>Sales Information</Text>
         {customerDetails?.salesInfo.map(renderSalesInfo)}
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "flex-end",
-          paddingBottom: 25,
-        }}
-      >
+      <View style={styles.btnContainer}>
         <TouchableOpacity
           onPress={() => setModalVisible({ status: true, salesId: "" })}
           style={styles.button}
@@ -122,6 +110,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
     backgroundColor: colors.bgWhite,
+  },
+  salesContainer: {
+    paddingVertical: 10,
+  },
+  btnContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingBottom: 25,
+  },
+  flexEnd: {
+    alignItems: "flex-end",
+  },
+  colorRed: {
+    color: colors.iconRed,
   },
   profileContainer: {
     flexDirection: "row",

@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import colors from "../constants/colors";
 import { addSales, editSales } from "../store/action/customerAction";
+import { customerDataType, initialFormType } from "../types/types";
 
 const initialFormData = {
   status: "",
@@ -25,10 +26,10 @@ const AddDetailsModal = ({
   visible: boolean;
   onClose: () => void;
   salesId?: string;
-  customerData: any;
+  customerData: customerDataType;
 }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState<initialFormType>(initialFormData);
 
   useEffect(() => {
     const initialFormValue = customerData?.salesInfo?.find(
