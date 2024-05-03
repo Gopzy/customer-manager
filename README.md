@@ -5,7 +5,7 @@ How to install:
 1. npm install or yarn: install all the dependencues
 2. npx json-server customer.json : to start the hosted JSON file (which will act as get api)
 3. npm run android : to start the android app
-4. npm run iOS: to start the iOS app
+4. npm run ios: to start the iOS app
 
 additional:
 
