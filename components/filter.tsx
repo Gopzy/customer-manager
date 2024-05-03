@@ -10,7 +10,17 @@ import { FILTER_OPTIONS } from "../constants";
 import Icon from "react-native-vector-icons/Ionicons";
 import colors from "../constants/colors";
 
-const Filter = ({ onSelect, visible, onToggle, selectedFilter }) => {
+const Filter = ({
+  onSelect,
+  visible,
+  onToggle,
+  selectedFilter,
+}: {
+  onSelect: (string) => void;
+  visible: boolean;
+  onToggle: () => void;
+  selectedFilter: string;
+}) => {
   return (
     <View>
       <View style={style.container}>
