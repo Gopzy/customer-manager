@@ -43,14 +43,13 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
       sId: salesId,
     };
 
+    // confirmation alert for delete records
     return Alert.alert(
       "Delete opportunity",
       "Are you sure you want to delete the record",
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
         },
         { text: "OK", onPress: () => dispatch(deleteSales(payload)) },
       ]

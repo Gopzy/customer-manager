@@ -74,3 +74,10 @@ export type reducerPayloadType = {
     | editSalesType
     | setFilterType;
 };
+
+export type TSaga = {
+  type: string;
+  payload?: any;
+  success?: Function;
+  failed?: Function;
+};
