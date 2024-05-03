@@ -38,25 +38,14 @@ const SalesInfo = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    backgroundColor: colors.bgWhite,
-  },
   salesContainer: {
     paddingVertical: 10,
   },
-  btnContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    paddingBottom: 25,
+  actionBtn: {
+    paddingHorizontal: 15,
   },
   flexEnd: {
     alignItems: "flex-end",
-  },
-  actionBtn: {
-    paddingHorizontal: 15,
   },
   rowContainer: {
     flexDirection: "row",
@@ -64,66 +53,8 @@ const styles = StyleSheet.create({
   colorRed: {
     color: colors.iconRed,
   },
-  profileContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginRight: 20,
-  },
-  profileInfo: {
-    flex: 1,
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  button: {
-    backgroundColor: colors.primaryBlue,
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    alignItems: "center",
-  },
-  text: {
-    color: colors.bgWhite,
-  },
   textBlue: {
     color: colors.primaryBlue,
-  },
-
-  color: {
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  email: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 5,
-  },
-  number: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 5,
-  },
-  gender: {
-    fontSize: 16,
-    color: "#666",
-  },
-  salesInfoContainer: {
-    borderTopWidth: 1,
-    borderTopColor: "#ccc",
-    paddingTop: 20,
-  },
-  salesInfoTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
   },
   saleItem: {
     flexDirection: "row",

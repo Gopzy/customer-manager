@@ -31,7 +31,7 @@ export type salesInfoType = {
 
 export type addModalType = {
   status: boolean;
-  salesId: string;
+  salesId?: string;
 };
 
 export type initialFormType = {

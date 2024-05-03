@@ -69,13 +69,13 @@ const AddDetailsModal = ({
       sId: salesId,
     };
 
+    // dispatch the edit or add action based on salesId
     if (salesId.length) {
       dispatch(editSales(editPayload));
     } else {
       dispatch(addSales(addPayload));
     }
 
-    // Reset the input fields and cloe the modal
     handleClose();
   };
 

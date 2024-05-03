@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import AddDetailsModal from "../components/modal";
 import SalesInfo from "../components/salesInfo";
@@ -26,8 +33,8 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
   const { customerData } = useSelector((state: Reducers) => state?.customer);
 
   useEffect(() => {
-    const selectedcustomer = customerData?.find(({ id }) => id === customerId);
-    selectedcustomer && setCustomerDetails(selectedcustomer);
+    const findCustomer = customerData?.find(({ id }) => id === customerId);
+    findCustomer && setCustomerDetails(findCustomer);
   }, [customerData]);
 
   const handleDeleteSales = (salesId: string) => {
@@ -35,7 +42,19 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
       customerId: customerDetails?.id,
       sId: salesId,
     };
-    dispatch(deleteSales(payload));
+
+    return Alert.alert(
+      "Delete opportunity",
+      "Are you sure you want to delete the record",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => dispatch(deleteSales(payload)) },
+      ]
+    );
   };
 
   const renderSalesInfo = (salesInfo: salesInfoType) => {
@@ -59,15 +78,19 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
           <Text style={styles.name}>
             {customerDetails?.first_name} {customerDetails?.last_name}
           </Text>
-          <Text style={styles.email}>{customerDetails?.email}</Text>
-          <Text style={styles.number}>{customerDetails?.number}</Text>
-          <Text style={styles.gender}>
+          <Text style={[styles.contactItem, styles.bottomMargin_5]}>
+            {customerDetails?.email}
+          </Text>
+          <Text style={[styles.contactItem, styles.bottomMargin_5]}>
+            {customerDetails?.number}
+          </Text>
+          <Text style={styles.contactItem}>
             {customerDetails?.gender === "M" ? "Male" : "Female"}
           </Text>
         </View>
       </View>
       <View style={styles.salesInfoContainer}>
-        <Text style={styles.salesInfoTitle}>Sales Information</Text>
+        <Text style={styles.salesInfoTitle}>Sales Opportunities</Text>
         {customerDetails?.salesInfo.map(renderSalesInfo)}
       </View>
       <View style={styles.btnContainer}>
@@ -94,25 +117,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     backgroundColor: colors.bgWhite,
   },
-  salesContainer: {
-    paddingVertical: 10,
-  },
   btnContainer: {
     flex: 1,
     justifyContent: "flex-end",
     paddingBottom: 25,
-  },
-  flexEnd: {
-    alignItems: "flex-end",
-  },
-  actionBtn: {
-    paddingHorizontal: 15,
-  },
-  rowContainer: {
-    flexDirection: "row",
-  },
-  colorRed: {
-    color: colors.iconRed,
   },
   profileContainer: {
     flexDirection: "row",
@@ -143,22 +151,15 @@ const styles = StyleSheet.create({
   text: {
     color: colors.bgWhite,
   },
-  textBlue: {
-    color: colors.primaryBlue,
-  },
-
   color: {
     fontSize: 16,
     fontWeight: "500",
   },
-  email: {
+  contactItem: {
     fontSize: 16,
     color: "#666",
-    marginBottom: 5,
   },
-  number: {
-    fontSize: 16,
-    color: "#666",
+  bottomMargin_5: {
     marginBottom: 5,
   },
   gender: {
@@ -174,18 +175,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
-  },
-  saleItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 5,
-  },
-  saleName: {
-    fontSize: 16,
-  },
-  saleStatus: {
-    fontSize: 16,
-    color: "#666",
   },
 });
 
