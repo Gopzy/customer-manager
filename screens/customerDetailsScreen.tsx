@@ -18,6 +18,7 @@ import {
   Reducers,
   salesInfoType,
 } from "../types/types";
+import { getGender } from "../utils/getSalesCustomerIndex";
 
 const CustomerDetailsScreen = ({ route }: { route: any }) => {
   const { customerId } = route.params;
@@ -84,7 +85,7 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
             {customerDetails?.number}
           </Text>
           <Text style={styles.contactItem}>
-            {customerDetails?.gender === "M" ? "Male" : "Female"}
+            {getGender(customerDetails?.gender)}
           </Text>
         </View>
       </View>

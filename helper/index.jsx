@@ -1,20 +1,21 @@
 import { FILTER_ALL } from "../constants";
+import {
+  getCustomerIndex,
+  getSalesIndex,
+} from "../utils/getSalesCustomerIndex";
 
 // Function for delete a specific sales record based on customerId and salesId
 const deletSalesRecord = (state, payload) => {
   const { customerId, sId } = payload;
+  const { customerData } = state;
 
-  const customerIndex = state.customerData.findIndex(
-    (customer) => customer.id === customerId
-  );
+  const customerIndex = getCustomerIndex(customerData, customerId);
 
   if (customerIndex !== -1) {
-    const salesInfoIndex = state.customerData[
-      customerIndex
-    ].salesInfo.findIndex((sale) => sale.salesId === sId);
+    const salesInfoIndex = getSalesIndex(customerData, customerIndex, sId);
 
     if (salesInfoIndex !== -1) {
-      const updatedCustomerData = [...state.customerData];
+      const updatedCustomerData = [...customerData];
 
       updatedCustomerData[customerIndex] = {
         ...updatedCustomerData[customerIndex],
@@ -41,18 +42,15 @@ const deletSalesRecord = (state, payload) => {
 // Function for edit an existing sales record  using customerId and salesId
 const editSalesRecord = (state, payload) => {
   const { customerId, sId, status, name } = payload;
+  const { customerData } = state;
 
-  const customerIndex = state.customerData.findIndex(
-    (customer) => customer.id === customerId
-  );
+  const customerIndex = getCustomerIndex(customerData, customerId);
 
   if (customerIndex !== -1) {
-    const salesInfoIndex = state.customerData[
-      customerIndex
-    ].salesInfo.findIndex((sale) => sale.salesId === sId);
+    const salesInfoIndex = getSalesIndex(customerData, customerIndex, sId);
 
     if (salesInfoIndex !== -1) {
-      const updatedCustomerData = [...state.customerData];
+      const updatedCustomerData = [...customerData];
       updatedCustomerData[customerIndex] = {
         ...updatedCustomerData[customerIndex],
         salesInfo: updatedCustomerData[customerIndex].salesInfo.map((sale) =>
@@ -73,10 +71,9 @@ const editSalesRecord = (state, payload) => {
 // Function for add a sales record  using customerId and salesId
 const addSalesRecord = (state, payload) => {
   const { customerId, status, name } = payload;
+  const { customerData } = state;
 
-  const customerIndex = state.customerData.findIndex(
-    ({ id }) => id === customerId
-  );
+  const customerIndex = getCustomerIndex(customerData, customerId);
 
   // generating a random salesId and attaching with the new record
   if (customerIndex !== -1) {
@@ -88,7 +85,7 @@ const addSalesRecord = (state, payload) => {
       name,
     };
 
-    const updatedCustomerData = [...state.customerData];
+    const updatedCustomerData = [...customerData];
     updatedCustomerData[customerIndex] = {
       ...updatedCustomerData[customerIndex],
       salesInfo: [

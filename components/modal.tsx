@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import colors from "../constants/colors";
 import { addSales, editSales } from "../store/action/customerAction";
 import { customerDataType, initialFormType } from "../types/types";
+import ModalDropdown from "react-native-modal-dropdown";
+import { SALES_OPTIONS } from "../constants";
 
 const initialFormData = {
   status: "",
@@ -100,11 +102,15 @@ const AddDetailsModal = ({
             value={formData.name}
             onChangeText={(text) => handleChange("name", text)}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Status"
-            value={formData.status}
-            onChangeText={(text) => handleChange("status", text)}
+
+          <ModalDropdown
+            options={SALES_OPTIONS}
+            defaultValue={formData.status || "Status"}
+            onSelect={(index, value) => handleChange("status", value)}
+            style={styles.dropdown}
+            textStyle={styles.dropdownText}
+            dropdownStyle={styles.dropdownStyle}
+            saveScrollPosition={false}
           />
           <TouchableOpacity style={styles.button} onPress={handleSave}>
             <Text style={styles.buttonText}>Save</Text>
@@ -154,6 +160,22 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "bold",
+  },
+  dropdown: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  dropdownText: {
+    fontSize: 14,
+    color: "black",
+  },
+  dropdownStyle: {
+    backgroundColor: "white",
+    borderRadius: 5,
+    width: "65%",
   },
 });
 

@@ -16,6 +16,8 @@ export const SALES_STATUS = {
   ClosedLost: "Closed Lost",
 };
 
+export const SALES_OPTIONS = ["New", "Closed Won", "Closed Lost"];
+
 export const FILTER_OPTIONS = [
   STATUS_ACTIVE,
   STATUS_INACTIVE,

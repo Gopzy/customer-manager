@@ -4,7 +4,7 @@ import {
   deletSalesRecord,
   editSalesRecord,
   setFilter,
-} from "../../utils";
+} from "../../helper";
 import {
   ADD_SALES_RECORD,
   DELETE_SALES_RECORD,
