@@ -2,7 +2,8 @@
 
 How to install:
 
-1. npm install or yarn: install all the dependencues
+1. npm install or yarn: install all the dependencues (if any issue with any packages use,
+   npm install --legacy-peer-deps)
 2. npx json-server customer.json : to start the hosted JSON file (which will act as get api)
 3. npm run android : to start the android app
 4. npm run ios: to start the iOS app

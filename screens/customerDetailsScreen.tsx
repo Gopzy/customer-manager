@@ -59,11 +59,13 @@ const CustomerDetailsScreen = ({ route }: { route: any }) => {
 
   const renderSalesInfo = (salesInfo: salesInfoType) => {
     return (
-      <SalesInfo
-        salesInfo={salesInfo}
-        onDelete={handleDeleteSales}
-        onEdit={setModalVisible}
-      />
+      <View key={salesInfo.salesId}>
+        <SalesInfo
+          salesInfo={salesInfo}
+          onDelete={handleDeleteSales}
+          onEdit={setModalVisible}
+        />
+      </View>
     );
   };
 
