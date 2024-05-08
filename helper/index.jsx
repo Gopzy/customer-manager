@@ -10,32 +10,27 @@ const deletSalesRecord = (state, payload) => {
   const { customerData } = state;
 
   const customerIndex = getCustomerIndex(customerData, customerId);
+  const salesInfoIndex = getSalesIndex(customerData, customerIndex, sId);
 
-  if (customerIndex !== -1) {
-    const salesInfoIndex = getSalesIndex(customerData, customerIndex, sId);
-
-    if (salesInfoIndex !== -1) {
-      const updatedCustomerData = [...customerData];
-
-      updatedCustomerData[customerIndex] = {
-        ...updatedCustomerData[customerIndex],
-        salesInfo: [
-          ...updatedCustomerData[customerIndex].salesInfo.slice(
-            0,
-            salesInfoIndex
+  if (customerIndex !== -1 && salesInfoIndex !== -1) {
+    const updatedCustomerData = customerData.map((customer, index) => {
+      if (index === customerIndex) {
+        return {
+          ...customer,
+          salesInfo: customer.salesInfo.filter(
+            (salesRecord, i) => i !== salesInfoIndex
           ),
-          ...updatedCustomerData[customerIndex].salesInfo.slice(
-            salesInfoIndex + 1
-          ),
-        ],
-      };
+        };
+      }
+      return customer;
+    });
 
-      return {
-        ...state,
-        customerData: updatedCustomerData,
-      };
-    }
+    return {
+      ...state,
+      customerData: updatedCustomerData,
+    };
   }
+
   return state;
 };
 
@@ -45,24 +40,25 @@ const editSalesRecord = (state, payload) => {
   const { customerData } = state;
 
   const customerIndex = getCustomerIndex(customerData, customerId);
+  const salesInfoIndex = getSalesIndex(customerData, customerIndex, sId);
 
-  if (customerIndex !== -1) {
-    const salesInfoIndex = getSalesIndex(customerData, customerIndex, sId);
+  if (customerIndex !== -1 && salesInfoIndex !== -1) {
+    const updatedCustomerData = customerData.map((customer, index) => {
+      if (index === customerIndex) {
+        return {
+          ...customer,
+          salesInfo: customer.salesInfo.map((sale) =>
+            sale.salesId === sId ? { ...sale, status, name } : sale
+          ),
+        };
+      }
+      return customer;
+    });
 
-    if (salesInfoIndex !== -1) {
-      const updatedCustomerData = [...customerData];
-      updatedCustomerData[customerIndex] = {
-        ...updatedCustomerData[customerIndex],
-        salesInfo: updatedCustomerData[customerIndex].salesInfo.map((sale) =>
-          sale.salesId === sId ? { ...sale, status, name } : sale
-        ),
-      };
-
-      return {
-        ...state,
-        customerData: updatedCustomerData,
-      };
-    }
+    return {
+      ...state,
+      customerData: updatedCustomerData,
+    };
   }
 
   return state;
@@ -75,24 +71,22 @@ const addSalesRecord = (state, payload) => {
 
   const customerIndex = getCustomerIndex(customerData, customerId);
 
-  // generating a random salesId and attaching with the new record
   if (customerIndex !== -1) {
-    const salesId = (Math.floor(Math.random() * 1000) + 1).toString();
-
     const newSalesRecord = {
-      salesId,
+      salesId: (Math.floor(Math.random() * 1000) + 1).toString(), // Generate random salesId
       status,
       name,
     };
 
-    const updatedCustomerData = [...customerData];
-    updatedCustomerData[customerIndex] = {
-      ...updatedCustomerData[customerIndex],
-      salesInfo: [
-        ...updatedCustomerData[customerIndex].salesInfo,
-        newSalesRecord,
-      ],
-    };
+    const updatedCustomerData = customerData.map((customer, index) => {
+      if (index === customerIndex) {
+        return {
+          ...customer,
+          salesInfo: [...customer.salesInfo, newSalesRecord],
+        };
+      }
+      return customer;
+    });
 
     return {
       ...state,

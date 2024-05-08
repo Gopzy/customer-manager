@@ -9,7 +9,7 @@ const SalesInfo = ({
   onEdit,
 }: {
   salesInfo: salesInfoType;
-  onDelete: (string) => void;
+  onDelete: (salesId: string) => void;
   onEdit: ({}) => void;
 }) => {
   return (

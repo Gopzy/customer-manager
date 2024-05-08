@@ -13,10 +13,11 @@ import { getCustomer, setFilter } from "../store/action/customerAction";
 import { customerDataType, Reducers } from "../types/types";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+
   const { customerData, filteredData } = useSelector(
     (state: Reducers) => state?.customer
   );
-  const dispatch = useDispatch();
 
   const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
   const [selectedFilter, setSelectedFilter] = useState<string>();

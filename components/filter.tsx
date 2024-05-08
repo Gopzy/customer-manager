@@ -16,7 +16,7 @@ const Filter = ({
   onToggle,
   selectedFilter,
 }: {
-  onSelect: (string) => void;
+  onSelect: (item: string) => void;
   visible: boolean;
   onToggle: () => void;
   selectedFilter: string;
