@@ -73,7 +73,7 @@ const addSalesRecord = (state, payload) => {
 
   if (customerIndex !== -1) {
     const newSalesRecord = {
-      salesId: (Math.floor(Math.random() * 1000) + 1).toString(), // Generate random salesId
+      salesId: (Math.floor(Math.random() * 1000) + 1).toString(),
       status,
       name,
     };

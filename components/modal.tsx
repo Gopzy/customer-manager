@@ -40,7 +40,7 @@ const AddDetailsModal = ({
 
     // setting the initial form state value upon editing
     initialFormValue && setFormData(initialFormValue);
-  }, [visible]);
+  }, [salesId]);
 
   const handleChange = (field, value) => {
     setFormData((prevData) => ({
@@ -95,7 +95,9 @@ const AddDetailsModal = ({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Add opportunity</Text>
+          <Text style={styles.modalTitle}>
+            {salesId.length ? "Edit opportunity" : "Add opportunity"}
+          </Text>
           <TextInput
             style={styles.input}
             placeholder="Name"
